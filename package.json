@@ -1,6 +1,6 @@
 {
   "name": "@ennabl/rc-tree",
-  "version": "5.7.2",
+  "version": "5.7.3",
   "description": "tree ui component for react",
   "publishConfig": {
     "access": "public"
