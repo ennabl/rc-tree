@@ -1,7 +1,10 @@
 {
-  "name": "rc-tree",
-  "version": "5.7.0",
+  "name": "@ennabl/rc-tree",
+  "version": "5.7.2",
   "description": "tree ui component for react",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=10.x"
   },
@@ -37,8 +40,6 @@
     "docs:build": "dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
     "compile": "father build && lessc assets/index.less assets/index.css",
-    "prepublishOnly": "npm run compile && np --yolo --no-publish",
-    "postpublish": "npm run gh-pages",
     "lint": "eslint src/ --ext .tsx,.ts,.jsx,.js",
     "test": "father test",
     "coverage": "father test --coverage",

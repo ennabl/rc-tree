@@ -2,12 +2,20 @@
  * Handle virtual list of the TreeNodes.
  */
 
-import * as React from 'react';
 import VirtualList, { ListRef } from 'rc-virtual-list';
-import { BasicDataNode, FlattenNode, Key, DataEntity, DataNode, ScrollTo } from './interface';
+import * as React from 'react';
+import {
+  BasicDataNode,
+  DataEntity,
+  DataNode,
+  EventDataNode,
+  FlattenNode,
+  Key,
+  ScrollTo,
+} from './interface';
 import MotionTreeNode from './MotionTreeNode';
 import { findExpandedKeys, getExpandRange } from './utils/diffUtil';
-import { getTreeNodeProps, getKey } from './utils/treeUtil';
+import { getKey, getTreeNodeProps } from './utils/treeUtil';
 
 const HIDDEN_STYLE = {
   width: 0,
@@ -91,6 +99,8 @@ interface NodeListProps<TreeDataType extends BasicDataNode> {
 
   onListChangeStart: () => void;
   onListChangeEnd: () => void;
+
+  filterTreeNode?: (treeNode: EventDataNode<TreeDataType>) => boolean;
 }
 
 /**
@@ -162,6 +172,8 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
 
     onListChangeStart,
     onListChangeEnd,
+
+    filterTreeNode,
 
     ...domProps
   } = props;
@@ -252,8 +264,6 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
     }
   }, [dragging]);
 
-  const mergedData = motion ? transitionData : data;
-
   const treeNodeRequiredProps = {
     expandedKeys,
     selectedKeys,
@@ -265,6 +275,17 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
     dropPosition,
     keyEntities,
   };
+
+  let mergedData = motion ? transitionData : data;
+  if (filterTreeNode) {
+    mergedData = mergedData.filter(item => {
+      return filterTreeNode({
+        ...item.data,
+        ...getTreeNodeProps(item.key, treeNodeRequiredProps),
+        props: getTreeNodeProps(item.key, treeNodeRequiredProps),
+      });
+    });
+  }
 
   return (
     <>

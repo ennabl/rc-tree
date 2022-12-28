@@ -547,7 +547,6 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
     const {
       context: {
         prefixCls,
-        filterTreeNode,
         keyEntities,
         dropContainerKey,
         dropTargetKey,
@@ -585,7 +584,6 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
           'drag-over': !disabled && dragOver,
           'drag-over-gap-top': !disabled && dragOverGapTop,
           'drag-over-gap-bottom': !disabled && dragOverGapBottom,
-          'filter-node': filterTreeNode && filterTreeNode(convertNodePropsToEventData(this.props)),
         })}
         style={style}
         // Draggable config
