@@ -2,6 +2,14 @@
 
 - https://github.com/react-component/tree/releases
 
+## 5.8.0 `2024-11-14`
+
+- **BREAKING**: Updated minimum Node.js requirement to >=14.x
+- Updated React peer dependency to support React 19.x while maintaining backward compatibility (>=16.9.0)
+- Updated TypeScript to v5.x and @types/react to v19.x for better React 19 type support
+- Updated development dependencies for React 19 compatibility
+- All existing React patterns (class components, hooks, createRef) remain fully compatible
+
 ## 3.2.0 `2020-05-08`
 
 - Upgrade `rc-animate`.
