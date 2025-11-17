@@ -1,5 +1,5 @@
 {
-  "name": "rc-tree",
+  "name": "@ennabl/rc-tree",
   "version": "5.8.0",
   "description": "tree ui component for react",
   "engines": {
