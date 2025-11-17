@@ -126,12 +126,10 @@ function getAccessibilityPath(item: FlattenNode): string {
   return path;
 }
 
-const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) => {
+const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) => {
   const {
     prefixCls,
     data,
-    selectable,
-    checkable,
     expandedKeys,
     selectedKeys,
     checkedKeys,
@@ -162,6 +160,8 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
 
     onListChangeStart,
     onListChangeEnd,
+
+    ref,
 
     ...domProps
   } = props;
@@ -364,7 +364,7 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
       </VirtualList>
     </>
   );
-});
+}
 
 NodeList.displayName = 'NodeList';
 
