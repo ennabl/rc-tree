@@ -3,11 +3,11 @@
  */
 
 import * as React from 'react';
-import VirtualList, { ListRef } from 'rc-virtual-list';
-import { BasicDataNode, FlattenNode, Key, DataEntity, DataNode, ScrollTo } from './interface';
+import VirtualList, {ListRef} from 'rc-virtual-list';
+import {BasicDataNode, FlattenNode, Key, DataEntity, DataNode, ScrollTo} from './interface';
 import MotionTreeNode from './MotionTreeNode';
-import { findExpandedKeys, getExpandRange } from './utils/diffUtil';
-import { getTreeNodeProps, getKey } from './utils/treeUtil';
+import {findExpandedKeys, getExpandRange} from './utils/diffUtil';
+import {getTreeNodeProps, getKey} from './utils/treeUtil';
 
 const HIDDEN_STYLE = {
   width: 0,
@@ -110,7 +110,7 @@ export function getMinimumRangeTransitionRange(
 }
 
 function itemKey(item: FlattenNode) {
-  const { key, pos } = item;
+  const {key, pos} = item;
   return getKey(key, pos);
 }
 
@@ -163,7 +163,7 @@ const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) =>
 
     ref,
 
-    ...domProps
+    style
   } = props;
 
   // =============================== Ref ================================
@@ -206,7 +206,7 @@ const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) =>
 
     if (diffExpanded.key !== null) {
       if (diffExpanded.add) {
-        const keyIndex = prevData.findIndex(({ key }) => key === diffExpanded.key);
+        const keyIndex = prevData.findIndex(({key}) => key === diffExpanded.key);
 
         const rangeNodes = getMinimumRangeTransitionRange(
           getExpandRange(prevData, data, diffExpanded.key),
@@ -222,7 +222,7 @@ const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) =>
         setTransitionRange(rangeNodes);
         setMotionType('show');
       } else {
-        const keyIndex = data.findIndex(({ key }) => key === diffExpanded.key);
+        const keyIndex = data.findIndex(({key}) => key === diffExpanded.key);
 
         const rangeNodes = getMinimumRangeTransitionRange(
           getExpandRange(data, prevData, diffExpanded.key),
@@ -305,7 +305,7 @@ const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) =>
       </div>
 
       <VirtualList<FlattenNode>
-        {...domProps}
+        style={style}
         data={mergedData}
         itemKey={itemKey}
         height={height}
