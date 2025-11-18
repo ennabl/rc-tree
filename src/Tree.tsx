@@ -919,11 +919,15 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
         keyEntities,
       );
 
-      // If remove, we do it again to correction
-      if (!checked) {
+      const isHafCheckedAndNothingToCheckMore = treeNode.halfChecked && oriCheckedKeys.length === checkedKeys.length;
+
+      // If remove or halfChecked was triggered and nothing changed, 
+      // we do it again to correction
+      if (!checked || isHafCheckedAndNothingToCheckMore) {
         const keySet = new Set(checkedKeys);
         keySet.delete(key);
-        ({checkedKeys, halfCheckedKeys} = conductCheck(
+        halfCheckedKeys = halfCheckedKeys.filter(item => item !== key);
+        ({ checkedKeys, halfCheckedKeys } = conductCheck(
           Array.from(keySet),
           {checked: false, halfCheckedKeys},
           keyEntities,
@@ -1489,6 +1493,7 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
             onListChangeEnd={this.onListChangeEnd}
             onContextMenu={onContextMenu}
             onScroll={onScroll}
+            filterTreeNode={filterTreeNode}
             {...this.getTreeNodeRequiredProps()}
             {...domProps}
           />
