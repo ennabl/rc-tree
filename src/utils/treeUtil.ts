@@ -13,8 +13,8 @@ import {
   FieldNames,
   BasicDataNode,
 } from '../interface';
-import { getPosition, isTreeNode } from '../util';
-import { TreeNodeProps } from '../TreeNode';
+import {getPosition, isTreeNode} from '../util';
+import {TreeNodeProps} from '../TreeNode';
 
 export function getKey(key: Key, pos: string) {
   if (key !== null && key !== undefined) {
@@ -24,7 +24,7 @@ export function getKey(key: Key, pos: string) {
 }
 
 export function fillFieldNames(fieldNames?: FieldNames): Required<FieldNames> {
-  const { title, _title, key, children } = fieldNames || {};
+  const {title, _title, key, children} = fieldNames || {};
   const mergedTitle = title || 'title';
 
   return {
@@ -78,8 +78,9 @@ export function convertTreeToData(rootNodes: React.ReactNode): DataNode[] {
           return null;
         }
 
-        const { key } = treeNode;
-        const { children, ...rest } = treeNode.props;
+        // React 19: Access key safely - use props.eventKey if available, otherwise use the element key
+        const {children, eventKey, ...rest} = treeNode.props;
+        const key = eventKey ?? (treeNode as any).key; // eventKey is the preferred way to pass keys
 
         const dataNode: DataNode = {
           key,
@@ -198,14 +199,14 @@ export function traverseDataNodes(
   if (typeof config === 'object') {
     mergedConfig = config;
   } else {
-    mergedConfig = { externalGetKey: config };
+    mergedConfig = {externalGetKey: config};
   }
   mergedConfig = mergedConfig || {};
 
   // Init config
-  const { childrenPropName, externalGetKey, fieldNames } = mergedConfig;
+  const {childrenPropName, externalGetKey, fieldNames} = mergedConfig;
 
-  const { key: fieldKey, children: fieldChildren } = fillFieldNames(fieldNames);
+  const {key: fieldKey, children: fieldChildren} = fillFieldNames(fieldNames);
 
   const mergeChildrenPropName = childrenPropName || fieldChildren;
 
@@ -225,7 +226,7 @@ export function traverseDataNodes(
   function processNode(
     node: DataNode,
     index?: number,
-    parent?: { node: DataNode; pos: string; level: number },
+    parent?: {node: DataNode; pos: string; level: number},
     pathNodes?: DataNode[],
   ) {
     const children = node ? node[mergeChildrenPropName] : dataNodes;
@@ -313,8 +314,8 @@ export function convertDataToEntities(
   traverseDataNodes(
     dataNodes,
     item => {
-      const { node, index, pos, key, parentPos, level, nodes } = item;
-      const entity: DataEntity = { node, nodes, index, key, pos, level };
+      const {node, index, pos, key, parentPos, level, nodes} = item;
+      const entity: DataEntity = {node, nodes, index, key, pos, level};
 
       const mergedKey = getKey(key, pos);
 
@@ -332,7 +333,7 @@ export function convertDataToEntities(
         processEntity(entity, wrapper);
       }
     },
-    { externalGetKey: mergedExternalGetKey, childrenPropName, fieldNames },
+    {externalGetKey: mergedExternalGetKey, childrenPropName, fieldNames},
   );
 
   if (onProcessFinished) {

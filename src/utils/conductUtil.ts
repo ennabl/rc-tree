@@ -112,9 +112,6 @@ function cleanConductCheck<TreeDataType extends BasicDataNode = DataNode>(
   const checkedKeys = new Set<Key>(keys);
   let halfCheckedKeys = new Set<Key>(halfKeys);
 
-  console.log({keys,
-    halfKeys})
-
   // Remove checked keys from top to bottom
   for (let level = 0; level <= maxLevel; level += 1) {
     const entities = levelEntities.get(level) || new Set();

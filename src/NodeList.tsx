@@ -120,7 +120,7 @@ export function getMinimumRangeTransitionRange(
 }
 
 function itemKey(item: FlattenNode) {
-  const { key, pos } = item;
+  const {key, pos} = item;
   return getKey(key, pos);
 }
 
@@ -136,12 +136,10 @@ function getAccessibilityPath(item: FlattenNode): string {
   return path;
 }
 
-const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) => {
+const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) => {
   const {
     prefixCls,
     data,
-    selectable,
-    checkable,
     expandedKeys,
     selectedKeys,
     checkedKeys,
@@ -174,6 +172,10 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
     onListChangeEnd,
 
     filterTreeNode,
+
+    ref,
+    selectable,
+    checkable,
 
     ...domProps
   } = props;
@@ -218,7 +220,7 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
 
     if (diffExpanded.key !== null) {
       if (diffExpanded.add) {
-        const keyIndex = prevData.findIndex(({ key }) => key === diffExpanded.key);
+        const keyIndex = prevData.findIndex(({key}) => key === diffExpanded.key);
 
         const rangeNodes = getMinimumRangeTransitionRange(
           getExpandRange(prevData, data, diffExpanded.key),
@@ -234,7 +236,7 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
         setTransitionRange(rangeNodes);
         setMotionType('show');
       } else {
-        const keyIndex = data.findIndex(({ key }) => key === diffExpanded.key);
+        const keyIndex = data.findIndex(({key}) => key === diffExpanded.key);
 
         const rangeNodes = getMinimumRangeTransitionRange(
           getExpandRange(data, prevData, diffExpanded.key),
@@ -385,7 +387,7 @@ const NodeList = React.forwardRef<NodeListRef, NodeListProps<any>>((props, ref) 
       </VirtualList>
     </>
   );
-});
+}
 
 NodeList.displayName = 'NodeList';
 

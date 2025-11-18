@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { TreeNodeProps } from './TreeNode';
+import {TreeNodeProps} from './TreeNode';
 
-export { ScrollTo } from 'rc-virtual-list/lib/List';
+export {ScrollTo} from 'rc-virtual-list/lib/List';
 
 /** For fieldNames, we provides a abstract interface */
 export interface BasicDataNode {

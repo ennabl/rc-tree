@@ -26,6 +26,7 @@ Tree component.
 ## Feature
 
 - Support all popular browsers, including Internet Explorer 9 and above.
+- **React 19 Ready**: Fully compatible with React 19.x while maintaining support for React 16.9+.
 
 ## Example
 
@@ -121,6 +122,8 @@ The number of treeNodes can be very large, but when enable `checkable`, it will 
 npm install
 npm start
 ```
+
+**Note:** If you encounter OpenSSL errors with Node.js v17+, the npm scripts are already configured with the `--openssl-legacy-provider` flag for compatibility.
 
 ## Test Case
 

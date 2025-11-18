@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 import pickAttrs from 'rc-util/lib/pickAttrs';
 // @ts-ignore
-import { TreeContext, TreeContextProps } from './contextTypes';
-import { IconType, Key, DataNode, BasicDataNode } from './interface';
+import {TreeContext, TreeContextProps} from './contextTypes';
+import {IconType, Key, DataNode, BasicDataNode} from './interface';
 import Indent from './Indent';
-import { convertNodePropsToEventData } from './utils/treeUtil';
+import {convertNodePropsToEventData} from './utils/treeUtil';
 
 const ICON_OPEN = 'open';
 const ICON_CLOSE = 'close';
@@ -77,7 +77,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   onSelectorClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     // Click trigger before select/check operation
     const {
-      context: { onNodeClick },
+      context: {onNodeClick},
     } = this.props;
     onNodeClick(e, convertNodePropsToEventData(this.props));
 
@@ -90,7 +90,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onSelectorDoubleClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     const {
-      context: { onNodeDoubleClick },
+      context: {onNodeDoubleClick},
     } = this.props;
     onNodeDoubleClick(e, convertNodePropsToEventData(this.props));
   };
@@ -99,7 +99,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
     if (this.isDisabled()) return;
 
     const {
-      context: { onNodeSelect },
+      context: {onNodeSelect},
     } = this.props;
     e.preventDefault();
     onNodeSelect(e, convertNodePropsToEventData(this.props));
@@ -108,9 +108,9 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   onCheck = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     if (this.isDisabled()) return;
 
-    const { disableCheckbox, checked } = this.props;
+    const {disableCheckbox, checked} = this.props;
     const {
-      context: { onNodeCheck },
+      context: {onNodeCheck},
     } = this.props;
 
     if (!this.isCheckable() || disableCheckbox) return;
@@ -122,28 +122,28 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onMouseEnter = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     const {
-      context: { onNodeMouseEnter },
+      context: {onNodeMouseEnter},
     } = this.props;
     onNodeMouseEnter(e, convertNodePropsToEventData(this.props));
   };
 
   onMouseLeave = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     const {
-      context: { onNodeMouseLeave },
+      context: {onNodeMouseLeave},
     } = this.props;
     onNodeMouseLeave(e, convertNodePropsToEventData(this.props));
   };
 
   onContextMenu = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     const {
-      context: { onNodeContextMenu },
+      context: {onNodeContextMenu},
     } = this.props;
     onNodeContextMenu(e, convertNodePropsToEventData(this.props));
   };
 
   onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     const {
-      context: { onNodeDragStart },
+      context: {onNodeDragStart},
     } = this.props;
 
     e.stopPropagation();
@@ -163,7 +163,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     const {
-      context: { onNodeDragEnter },
+      context: {onNodeDragEnter},
     } = this.props;
 
     e.preventDefault();
@@ -173,7 +173,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     const {
-      context: { onNodeDragOver },
+      context: {onNodeDragOver},
     } = this.props;
 
     e.preventDefault();
@@ -183,7 +183,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     const {
-      context: { onNodeDragLeave },
+      context: {onNodeDragLeave},
     } = this.props;
 
     e.stopPropagation();
@@ -192,7 +192,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
     const {
-      context: { onNodeDragEnd },
+      context: {onNodeDragEnd},
     } = this.props;
 
     e.stopPropagation();
@@ -204,7 +204,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     const {
-      context: { onNodeDrop },
+      context: {onNodeDrop},
     } = this.props;
 
     e.preventDefault();
@@ -219,7 +219,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   onExpand: React.MouseEventHandler<HTMLDivElement> = e => {
     const {
       loading,
-      context: { onNodeExpand },
+      context: {onNodeExpand},
     } = this.props;
     if (loading) return;
     onNodeExpand(e, convertNodePropsToEventData(this.props));
@@ -231,7 +231,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   };
 
   getNodeState = () => {
-    const { expanded } = this.props;
+    const {expanded} = this.props;
 
     if (this.isLeaf()) {
       return null;
@@ -241,19 +241,19 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   };
 
   hasChildren = () => {
-    const { eventKey } = this.props;
+    const {eventKey} = this.props;
     const {
-      context: { keyEntities },
+      context: {keyEntities},
     } = this.props;
-    const { children } = keyEntities[eventKey] || {};
+    const {children} = keyEntities[eventKey] || {};
 
     return !!(children || []).length;
   };
 
   isLeaf = () => {
-    const { isLeaf, loaded } = this.props;
+    const {isLeaf, loaded} = this.props;
     const {
-      context: { loadData },
+      context: {loadData},
     } = this.props;
 
     const hasChildren = this.hasChildren();
@@ -266,18 +266,18 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   };
 
   isDisabled = () => {
-    const { disabled } = this.props;
+    const {disabled} = this.props;
     const {
-      context: { disabled: treeDisabled },
+      context: {disabled: treeDisabled},
     } = this.props;
 
     return !!(treeDisabled || disabled);
   };
 
   isCheckable = () => {
-    const { checkable } = this.props;
+    const {checkable} = this.props;
     const {
-      context: { checkable: treeCheckable },
+      context: {checkable: treeCheckable},
     } = this.props;
 
     // Return false if tree or treeNode is not checkable
@@ -287,9 +287,9 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   // Load data to avoid default expanded tree without data
   syncLoadData = props => {
-    const { expanded, loading, loaded } = props;
+    const {expanded, loading, loaded} = props;
     const {
-      context: { loadData, onNodeLoad },
+      context: {loadData, onNodeLoad},
     } = this.props;
 
     if (loading) {
@@ -307,9 +307,9 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   };
 
   isSelectable() {
-    const { selectable } = this.props;
+    const {selectable} = this.props;
     const {
-      context: { selectable: treeSelectable },
+      context: {selectable: treeSelectable},
     } = this.props;
 
     // Ignore when selectable is undefined or null
@@ -323,7 +323,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   isDraggable = () => {
     const {
       data,
-      context: { draggable },
+      context: {draggable},
     } = this.props;
 
     return !!(draggable && (!draggable.nodeDraggable || draggable.nodeDraggable(data)));
@@ -332,7 +332,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   // ==================== Render: Drag Handler ====================
   renderDragHandler = () => {
     const {
-      context: { draggable, prefixCls },
+      context: {draggable, prefixCls},
     } = this.props;
 
     return draggable?.icon ? (
@@ -342,24 +342,24 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   // ====================== Render: Switcher ======================
   renderSwitcherIconDom = (isLeaf: boolean) => {
-    const { switcherIcon: switcherIconFromProps } = this.props;
+    const {switcherIcon: switcherIconFromProps} = this.props;
     const {
-      context: { switcherIcon: switcherIconFromCtx },
+      context: {switcherIcon: switcherIconFromCtx},
     } = this.props;
 
     const switcherIcon = switcherIconFromProps || switcherIconFromCtx;
     // if switcherIconDom is null, no render switcher span
     if (typeof switcherIcon === 'function') {
-      return switcherIcon({ ...this.props, isLeaf });
+      return switcherIcon({...this.props, isLeaf});
     }
     return switcherIcon;
   };
 
   // Switcher
   renderSwitcher = () => {
-    const { expanded } = this.props;
+    const {expanded} = this.props;
     const {
-      context: { prefixCls },
+      context: {prefixCls},
     } = this.props;
 
     if (this.isLeaf()) {
@@ -390,9 +390,9 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   // ====================== Render: Checkbox ======================
   // Checkbox
   renderCheckbox = () => {
-    const { checked, halfChecked, disableCheckbox } = this.props;
+    const {checked, halfChecked, disableCheckbox} = this.props;
     const {
-      context: { prefixCls },
+      context: {prefixCls},
     } = this.props;
     const disabled = this.isDisabled();
     const checkable = this.isCheckable();
@@ -419,9 +419,9 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   // ==================== Render: Title + Icon ====================
   renderIcon = () => {
-    const { loading } = this.props;
+    const {loading} = this.props;
     const {
-      context: { prefixCls },
+      context: {prefixCls},
     } = this.props;
 
     return (
@@ -437,10 +437,10 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   // Icon + Title
   renderSelector = () => {
-    const { dragNodeHighlight } = this.state;
-    const { title, selected, icon, loading, data } = this.props;
+    const {dragNodeHighlight} = this.state;
+    const {title, selected, icon, loading, data} = this.props;
     const {
-      context: { prefixCls, showIcon, icon: treeIcon, loadData, titleRender },
+      context: {prefixCls, showIcon, icon: treeIcon, loadData, titleRender},
     } = this.props;
     const disabled = this.isDisabled();
 
@@ -499,7 +499,7 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
 
   // =================== Render: Drop Indicator ===================
   renderDropIndicator = () => {
-    const { disabled, eventKey } = this.props;
+    const {disabled, eventKey} = this.props;
     const {
       context: {
         draggable,
@@ -512,11 +512,11 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
         direction,
       },
     } = this.props;
-    const rootDraggable = draggable !== false;
+    const rootDraggable = !!draggable;
     // allowDrop is calculated in Tree.tsx, there is no need for calc it here
     const showIndicator = !disabled && rootDraggable && dragOverNodeKey === eventKey;
     return showIndicator
-      ? dropIndicatorRender({ dropPosition, dropLevelOffset, indent, prefixCls, direction })
+      ? dropIndicatorRender({dropPosition, dropLevelOffset, indent, prefixCls, direction})
       : null;
   };
 
@@ -554,15 +554,15 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
       },
     } = this.props;
     const disabled = this.isDisabled();
-    const dataOrAriaAttributeProps = pickAttrs(otherProps, { aria: true, data: true });
-    const { level } = keyEntities[eventKey] || {};
+    const dataOrAriaAttributeProps = pickAttrs(otherProps, {aria: true, data: true});
+    const {level} = keyEntities[eventKey] || {};
     const isEndNode = isEnd[isEnd.length - 1];
 
     const mergedDraggable = this.isDraggable();
     const draggableWithoutDisabled = !disabled && mergedDraggable;
 
     const dragging = draggingNodeKey === eventKey;
-    const ariaSelected = selectable !== undefined ? { 'aria-selected': !!selectable } : undefined;
+    const ariaSelected = selectable !== undefined ? {'aria-selected': !!selectable} : undefined;
 
     return (
       <div
@@ -610,20 +610,23 @@ class InternalTreeNode extends React.Component<InternalTreeNodeProps, TreeNodeSt
   }
 }
 
-const ContextTreeNode: React.FC<TreeNodeProps> = props => (
-  <TreeContext.Consumer>
-    {context => <InternalTreeNode {...props} context={context} />}
-  </TreeContext.Consumer>
-);
+const ContextTreeNode: React.FC<TreeNodeProps> = props => {
+  const mergedProps = {
+    title: defaultTitle,
+    ...props,
+  };
+
+  return (
+    <TreeContext.Consumer>
+      {context => <InternalTreeNode {...mergedProps} context={context} />}
+    </TreeContext.Consumer>
+  );
+};
 
 ContextTreeNode.displayName = 'TreeNode';
 
-ContextTreeNode.defaultProps = {
-  title: defaultTitle,
-};
-
 (ContextTreeNode as any).isTreeNode = 1;
 
-export { InternalTreeNode };
+export {InternalTreeNode};
 
 export default ContextTreeNode;

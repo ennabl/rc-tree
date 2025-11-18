@@ -1,5 +1,4 @@
-import { ReactWrapper } from 'enzyme';
-import { Component } from 'react';
+import {Component} from 'react';
 
 export function objectMatcher(item: object) {
   const result = Array.isArray(item) ? [] : {};
@@ -9,7 +8,6 @@ export function objectMatcher(item: object) {
     if (
       value &&
       typeof value === 'object' &&
-      !(value instanceof ReactWrapper) &&
       !(value instanceof Component)
     ) {
       result[key] = objectMatcher(value);
