@@ -162,8 +162,10 @@ const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) =>
     onListChangeEnd,
 
     ref,
+    selectable,
+    checkable,
 
-    style
+    ...domProps
   } = props;
 
   // =============================== Ref ================================
@@ -305,7 +307,7 @@ const NodeList = (props: NodeListProps<any> & {ref?: React.Ref<NodeListRef>}) =>
       </div>
 
       <VirtualList<FlattenNode>
-        style={style}
+        {...domProps}
         data={mergedData}
         itemKey={itemKey}
         height={height}
